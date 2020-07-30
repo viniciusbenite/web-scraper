@@ -9,16 +9,17 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 def action_chains(driver):
-    # Deal with loading pages (10 seconds)
+    # Deal with loading pages (X seconds)
     driver.implicitly_wait(5)
     cookie = driver.find_element_by_id("bigCookie")
     cookie_count = driver.find_element_by_id("cookies")
     # List compreesion, in reverse
-    items = [driver.find_element_by_id("product" + str(i)) for i in range(1, -1, -1)]
+    items = [driver.find_element_by_id("productPrice" + str(i)) for i in range(1,-1,-1)]
     
     actions = ActionChains(driver)
     actions.click(cookie)
-
+    print(cookie_count.text)
+    print(int(cookie_count.text.split(" ")[0]))
     for i in range(5000):
         actions.perform()
         count = int(cookie_count.text.split(" ")[0])
@@ -30,6 +31,7 @@ def action_chains(driver):
                 upgrade_actions.move_to_element(item)
                 upgrade_actions.click()
                 upgrade_actions.perform()
+        i += 1
 
                 
 
